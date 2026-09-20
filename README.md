@@ -1,206 +1,62 @@
 SOC Incident Case Studies
 
-SOC investigation case studies based on my cybersecurity labs and security monitoring practice.
+A collection of SOC investigation scenarios from my cybersecurity labs and security monitoring practice.
 
-The cases document how I approach alerts from initial triage through investigation, escalation, containment and closure.
-
----
-
-Investigation Process
-
-Alert
-↓
-Initial Triage
-↓
-Review Evidence
-↓
-Investigate Activity
-↓
-Determine Risk
-↓
-Escalate or Contain
-↓
-Document and Close
+The case files show how I work through an alert, review the evidence and decide whether further investigation or escalation is needed.
 
 ---
 
 Case Studies
 
-Case 01 — Repeated SSH Authentication Failures
+Case 01 — Repeated SSH Failures
 
-Multiple failed SSH login attempts are detected against a Linux system.
+Reviewing repeated SSH authentication failures, including source IP, affected host, timestamps and surrounding authentication activity.
 
-Investigation includes:
+Case 02 — Successful Login After SSH Failures
 
-- Source IP
-- Target host
-- Timestamp
-- Number of attempts
-- Authentication logs
-- Related activity
+Investigating a successful SSH login that occurred after repeated authentication failures.
 
----
+Case 03 — Suricata Login Alert
 
-Case 02 — Successful SSH Login After Failures
+Investigation of repeated login requests against OWASP Juice Shop using Suricata and Splunk.
 
-A successful SSH authentication occurs following repeated failed attempts.
-
-Investigation includes:
-
-- Previous failed attempts
-- Source IP comparison
-- Username
-- Target system
-- Timing between events
-- Additional activity after authentication
-
-This type of sequence was used during my Microsoft Sentinel lab.
-
----
-
-Case 03 — Suricata Web Login Alert
-
-Suricata detects repeated login requests against the OWASP Juice Shop lab.
-
-Lab detection:
+Detection used in the lab:
 
 POST /rest/user/login
 
-Threshold:
+Threshold: 5 attempts within 30 seconds
 
-5 attempts within 30 seconds
+Case 04 — Entra ID Sign-In Failure
 
-Investigation includes:
+Reviewing failed Microsoft Entra ID sign-ins, error information, source IPs and surrounding authentication activity.
 
-- Source address
-- HTTP request
-- Timestamp
-- Alert signature
-- Suricata event data
-- Related events in Splunk
+Case 05 — Suspicious IP
+
+Searching logs for additional activity associated with a suspicious IP and reviewing whether escalation or containment is required.
 
 ---
 
-Case 04 — Microsoft Entra ID Sign-In Failure
+My Investigation Approach
 
-A failed sign-in is identified in Microsoft Entra ID logs.
+Alert
+↓
+Triage
+↓
+Review logs and evidence
+↓
+Check related activity
+↓
+Document findings
+↓
+Escalate or contain if required
+↓
+Close
 
-Investigation includes:
-
-- User account
-- Sign-in result
-- Timestamp
-- Source IP
-- Error code
-- Previous failures
-- Successful sign-ins
-- Account status
-
-My Entra ID practice included reviewing successful and failed sign-ins and account lockout behaviour.
-
----
-
-Case 05 — Suspicious IP Investigation
-
-A suspicious IP address is identified during log analysis.
-
-Investigation includes:
-
-- Search for additional events from the IP
-- Systems contacted
-- Authentication attempts
-- Event frequency
-- Successful activity
-- Watchlist comparison
-- Possible containment requirements
-
-During my Sentinel practice I created a watchlist called:
-
-Malicious SSH IPs
+I normally look at the user, host, source IP, timestamps, authentication results and related events before making a decision.
 
 ---
 
-Triage Questions
-
-When reviewing an alert I ask:
-
-- What triggered the alert?
-- Which system is affected?
-- Which user is involved?
-- What is the source IP?
-- When did the activity begin?
-- Is the activity repeated?
-- Was authentication successful?
-- Is there related activity?
-- Is the behaviour expected?
-- Does the incident require escalation?
-
----
-
-Evidence
-
-Evidence may include:
-
-- SIEM logs
-- Syslog
-- Authentication logs
-- Source and destination IPs
-- User accounts
-- Hostnames
-- Timestamps
-- Suricata alerts
-- Microsoft Sentinel incidents
-- Entra ID sign-in logs
-
----
-
-Escalation
-
-An incident may require escalation when evidence indicates suspicious or potentially malicious activity beyond the scope of initial triage.
-
-Information passed during escalation should include:
-
-- Alert summary
-- Affected user/system
-- Source IP
-- Timeline
-- Evidence reviewed
-- Findings
-- Actions already taken
-- Recommended next steps
-
----
-
-Containment
-
-Depending on the evidence and authorised procedures, containment could include:
-
-- Blocking a malicious IP
-- Disabling or restricting an account
-- Isolating an affected system
-- Revoking active sessions
-- Escalating to the appropriate security team
-
-Containment actions should follow organisational procedures and authorisation.
-
----
-
-Incident Closure
-
-Before closing an incident:
-
-- Confirm investigation is complete
-- Record findings
-- Record actions taken
-- Document the timeline
-- Confirm escalation where required
-- Record the reason for closure
-
-The incident record should allow another analyst to understand what happened and how the alert was handled.
-
----
-
-Tools Used in My Labs
+Lab Tools
 
 - Microsoft Sentinel
 - KQL
@@ -213,8 +69,17 @@ Tools Used in My Labs
 
 ---
 
-Current Focus
+Case Files
 
-Alert Triage • Incident Investigation • Evidence Analysis • Authentication Monitoring • Escalation • Containment • Incident Documentation
+- case-01-repeated-ssh-failures.md
+- case-02-success-after-ssh-failures.md
+- case-03-suricata-login-alert.md
+- case-04-entra-signin-failure.md
+- case-05-suspicious-ip.md
+- incident-investigation-template.md
+
+---
+
+These are lab-based investigations and study exercises, not production SOC incidents.
 
 Progress still ongoing.
